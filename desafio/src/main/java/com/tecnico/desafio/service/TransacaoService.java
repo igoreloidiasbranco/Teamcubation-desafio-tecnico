@@ -26,4 +26,8 @@ public class TransacaoService {
         transacaoRepository.salvar(transacaoDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    public void deletar() {
+        transacaoRepository.deletar();
+    }
 }
