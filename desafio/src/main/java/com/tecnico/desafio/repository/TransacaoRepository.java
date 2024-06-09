@@ -15,4 +15,8 @@ public class TransacaoRepository {
         this.transacaoDTOList.add(transacaoDTO);
         return transacaoDTO;
     }
+
+    public void deletar() {
+        this.transacaoDTOList.clear();
+    }
 }
