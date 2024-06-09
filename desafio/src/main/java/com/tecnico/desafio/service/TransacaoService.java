@@ -2,8 +2,11 @@ package com.tecnico.desafio.service;
 
 import com.tecnico.desafio.dto.TransacaoDTO;
 import com.tecnico.desafio.repository.TransacaoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 
 @Service
 public class TransacaoService {
@@ -15,6 +18,12 @@ public class TransacaoService {
     }
 
     public ResponseEntity salvar(TransacaoDTO transacaoDTO) {
-        return ResponseEntity.ok(transacaoRepository.salvar(transacaoDTO));
+
+        OffsetDateTime currentDateTime = OffsetDateTime.now();
+        if (transacaoDTO.getDataHora().isAfter(currentDateTime) || transacaoDTO.getValor() < 0) {
+            return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        transacaoRepository.salvar(transacaoDTO);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
